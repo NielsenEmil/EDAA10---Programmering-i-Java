@@ -1,0 +1,46 @@
+package inl1;
+import se.lth.cs.p.inl1.nbr6.*;
+
+public class Decryptographer {
+	
+	/** Skapar ett objekt för dechiffrering där nyckeln key används */
+	public Decryptographer(Key key){
+		
+	}
+	/** Dechiffrerar texten text och returnerar klartexten */
+	public String decrypt(String text){
+		StringBuilder s = new StringBuilder();
+		Key key = new Key();
+		s.append(text);
+
+		int i = 0;
+		for(int k=0 ; k < text.length(); k++){
+			char letter = s.charAt(k);
+			if(!(letter == ' ')){
+				int index = key.getNumber(i);
+				while (index > 26){
+					index = index - 26;
+				}
+				if (letter - index >= 65){
+					char newLetter = (char)(letter - index);
+					s.setCharAt(k, newLetter);
+				}
+				else{
+					int diff = 64 - (letter - index);
+					char newLetter = (char)(90 - diff);
+					s.setCharAt(k, newLetter);
+				}
+				
+				
+				if (i < 4){
+					i++;
+				}
+				else{
+					i=0;
+				}
+			}
+			}
+		text = s.toString();
+		return text;
+	}
+}
